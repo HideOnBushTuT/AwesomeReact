@@ -1,19 +1,14 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
-// import Hooks from "./App/Hooks";
 
-// import Hooks from './App/Hooks';
-// import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
+import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
 import InputWithHooks from './App/Hooks/InputWithHooks';
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                {/*<InputWithoutHooks/>*/}
-                <InputWithHooks/>
-            </div>
+            <InputWithHooks/>
         );
     }
 }
