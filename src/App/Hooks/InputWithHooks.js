@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // export default function InputWithHooks() {
 //     const [name, setName] = useState('Mary');
@@ -19,23 +19,24 @@ import React, { useState } from 'react';
 // }
 
 export default () => {
-    const [name, setName] = useState('Mary');
+    const [name, setName] = useState('Google');
+    const [count, setCount] = useState(0);
 
-    function handlerNameChange(e) {
-        setName(e.target.value);
-    }
+    useEffect(() => {
+        document.title = `You Click ${count} times`;
+    }, []);
 
     return (
         <div className="App" style={{justifyContent: 'center', alignItems: 'center'}}>
-            <p style={{fontSize: 100, color: 'orange'}} align="center">Google</p>
+            <p style={{fontSize: 100, color: 'orange'}} align="center">{name} {count}</p>
             <input
                 style={{fontSize: 20, width: 700}}
                 type={'text'}
                 placeholder={'type your text here'}
                 value={name}
-                onChange={handlerNameChange}
+                onChange={(e) => setName(e.target.value)}
             />
-            <a href={''}>手气不错</a>
+            <button onClick={() => setCount(count + 1)}>Ckick Me To Plus One</button>
         </div>
     );
 }
