@@ -9,17 +9,27 @@ import Form from './App/Hooks/Form';
 const App = () => {
     const [todos, setTodos] = useState([]);
 
-    return (
-        // <InputWithHooks/>
-        <div className='App'>
-            <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
-            <div>
-                {
-                    todos.map(({ text }) => <div key={text + Math.random()}>{text}</div>)
-                }
-            </div>
+    const toggleComplete = i => {
+        setTodos(todos.map((todo, k) =>
+            k === i ? { ...todo, onComplete: !todo.onComplete } : todo
+        ));
+    }
+
+return (
+    // <InputWithHooks/>
+    <div className='App'>
+        <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
+        <div>
+            {
+                todos.map(({ text, onComplete }, i) => <div key={text + Math.random()} onClick={() => toggleComplete(i)}
+                 style={{ textDecoration: onComplete ? 'line-through' : '' }}>
+                    {text}
+                </div>)
+            }
         </div>
-    );
+        <button onClick={() => setTodos([])}>reset</button>
+    </div>
+);
 };
 
 // function App() {
