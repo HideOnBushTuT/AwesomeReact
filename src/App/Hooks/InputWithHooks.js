@@ -42,6 +42,9 @@ export default () => {
     const [count, setCount] = useState(0);
     const {person, loading} = useFetch('https://api.randomuser.me/');
 
+    useEffect(() => {
+        document.title = '点击了' + count + '次';
+    });
 
     return (
         <div className="App" style={{justifyContent: 'center', alignItems: 'center'}}>
