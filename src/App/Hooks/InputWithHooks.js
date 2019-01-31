@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useReducer } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useReducer, useMemo } from 'react';
 import { AsyncSeriesWaterfallHook } from 'tapable';
 
 // export default function InputWithHooks() {
@@ -53,6 +53,13 @@ const useFetch = (url) => {
     return { person, loading };
 }
 
+const names = ({name}) => {
+    const nameView = useMemo(() => <div>{name}</div>, [name]);
+    return <div>
+        {nameView}
+    </div>
+}
+
 export default ({initialcount}) => {
     const [name, setName] = useState('Google');
     // const [count, setCount] = useState(0);
@@ -80,7 +87,8 @@ export default ({initialcount}) => {
             <button onClick={() => dispatch({type: 'increment'})}>+</button>
             <button onClick={() => dispatch({type: 'decrement'})}>-</button>
             <button onClick={() => dispatch({type: 'reset', payload: 100})}>reset</button>
-            {loading ? <div>loading...</div> : <div>{person.name.first}</div>}
+            {/* {loading ? <div>loading...</div> : <div>{person.name.first}</div>} */}
+            { names({name: loading ? 'loading...' : person.name.first})}
         </div>
     );
 }
