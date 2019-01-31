@@ -16,19 +16,19 @@ const App = () => {
     }
 
 return (
-    // <InputWithHooks/>
-    <div className='App'>
-        <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
-        <div>
-            {
-                todos.map(({ text, onComplete }, i) => <div key={text + Math.random()} onClick={() => toggleComplete(i)}
-                 style={{ textDecoration: onComplete ? 'line-through' : '' }}>
-                    {text}
-                </div>)
-            }
-        </div>
-        <button onClick={() => setTodos([])}>reset</button>
-    </div>
+    <InputWithHooks/>
+    // <div className='App'>
+    //     <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
+    //     <div>
+    //         {
+    //             todos.map(({ text, onComplete }, i) => <div key={text + Math.random()} onClick={() => toggleComplete(i)}
+    //              style={{ textDecoration: onComplete ? 'line-through' : '' }}>
+    //                 {text}
+    //             </div>)
+    //         }
+    //     </div>
+    //     <button onClick={() => setTodos([])}>reset</button>
+    // </div>
 );
 };
 
