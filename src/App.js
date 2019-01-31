@@ -16,7 +16,7 @@ const App = () => {
     }
 
 return (
-    <InputWithHooks/>
+    <InputWithHooks initialcount={8}/>
     // <div className='App'>
     //     <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
     //     <div>

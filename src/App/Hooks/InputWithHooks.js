@@ -24,9 +24,11 @@ const initialState = { count: 0 };
 const reducer = (state, action) => {
     switch(action.type) {
         case 'reset': 
-            return initialState;
+            return { count: action.payload };
         case 'increment':
             return { count: state.count + 1}
+        case 'decrement':
+            return { count: state.count - 1 }
         default: 
             return state;
     }
@@ -51,10 +53,10 @@ const useFetch = (url) => {
     return { person, loading };
 }
 
-export default () => {
+export default ({initialcount}) => {
     const [name, setName] = useState('Google');
     // const [count, setCount] = useState(0);
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState, { type: 'reset', payload: initialcount });
     const { person, loading } = useFetch('https://api.randomuser.me/');
 
     useEffect(() => {
@@ -75,7 +77,9 @@ export default () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <button onClick={() => dispatch({type: 'increment'})}>Ckick Me To Plus One</button>
+            <button onClick={() => dispatch({type: 'increment'})}>+</button>
+            <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+            <button onClick={() => dispatch({type: 'reset', payload: 100})}>reset</button>
             {loading ? <div>loading...</div> : <div>{person.name.first}</div>}
         </div>
     );
