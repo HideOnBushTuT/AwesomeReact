@@ -1,11 +1,28 @@
 import React, { Component, useState, Perf } from 'react';
+
+import { observable, action } from "mobx";
+
 // import logo from './logo.svg';
 import './App.css';
 import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
 import InputWithHooks from './App/Hooks/InputWithHooks';
 import Form from './App/Hooks/Form';
+import TimerView from './App/Todos/Todo';
+import Root from './App/Redux/Counter';
 
 window.Perf = Perf;
+
+// var appState = observable({
+//     timer: 0
+// });
+
+// appState.resetTimer = action(function reset() {
+//     appState.timer = 0;
+// });
+
+// setInterval(action(function tick() {
+//     appState.timer += 1;
+// }), 1000);
 
 const App = () => {
     // const [todos, setTodos] = useState([]);
@@ -17,7 +34,9 @@ const App = () => {
     // }
 
     return (
-        <InputWithHooks initialcount={8} />
+        <Root/>
+        // <InputWithHooks initialcount={8} />
+        // <TimerView appState={appState}/>
         // <div className='App'>
         //     <Form onSubmit={text => setTodos([{ text, onComplete: false }, ...todos])} />
         //     <div>
