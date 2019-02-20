@@ -67,7 +67,7 @@ export default ({ initialcount }) => {
     const { person, loading } = useFetch('https://api.randomuser.me/');
 
     useEffect(() => {
-        document.title = '点击了' + state.count + '次';
+        document.title = 'React ' + state.count;
     });
 
     // useLayoutEffect(() => {
