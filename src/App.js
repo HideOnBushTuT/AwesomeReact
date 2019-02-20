@@ -1,7 +1,7 @@
-import React, { Component, useState, Perf } from 'react';
+import React, { Component, useState, } from 'react';
 
 import { observable, action } from "mobx";
-
+// import Perf from 'react-addons-perf';
 // import logo from './logo.svg';
 import './App.css';
 import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
@@ -10,7 +10,7 @@ import Form from './App/Hooks/Form';
 import TimerView from './App/Todos/Todo';
 import Root from './App/Redux/Counter';
 
-window.Perf = Perf;
+// window.Perf = Perf;
 
 // var appState = observable({
 //     timer: 0
