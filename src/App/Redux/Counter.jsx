@@ -1,5 +1,5 @@
 import  React from "react";
-import {  } from "react-dom";
+import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
@@ -38,7 +38,7 @@ const store = createStore(CounterReducer, initValue, applyMiddleware(logger));
 
 const Counter = ({count, onIncrement, onDecrement}) => {
     return (
-        <div>
+        <div className='App'>
         <div>{count}</div>
         <button onClick={onIncrement}>+</button>
         <button onClick={onDecrement}>-</button>
