@@ -34,7 +34,7 @@ const App = () => {
     // }
 
     return (
-        <Root/>
+        <Root />
         // <InputWithHooks initialcount={8} />
         // <TimerView appState={appState}/>
         // <div className='App'>

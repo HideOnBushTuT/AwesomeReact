@@ -1,4 +1,4 @@
-import  React from "react";
+import React from "react";
 import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -28,12 +28,12 @@ const reset = () => {
 };
 
 const initValue = 0;
-const CounterReducer = (state, action) =>{
+const CounterReducer = (state = initValue, action) => {
 
-    switch(action.type) {
+    switch (action.type) {
         case INCREMENT:
             return state + 1;
-        case DECREMENT: 
+        case DECREMENT:
             return state - 1;
         case RESET:
             return initValue;
@@ -44,14 +44,14 @@ const CounterReducer = (state, action) =>{
 
 const store = createStore(CounterReducer, initValue, applyMiddleware(logger));
 
-const Counter = ({count, onIncrement, onDecrement, onReset}) => {
+const Counter = ({ count, onIncrement, onDecrement, onReset }) => {
     return (
         <div className='App'>
-        <div>{count}</div>
-        <button onClick={onIncrement}>+</button>
-        <button onClick={onDecrement}>-</button>
-        <button onClick={onReset}>reset</button>
-    </div>
+            <div>{count}</div>
+            <button onClick={onIncrement}>+</button>
+            <button onClick={onDecrement}>-</button>
+            <button onClick={onReset}>reset</button>
+        </div>
     );
 };
 
@@ -79,6 +79,6 @@ const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 export default () => {
     return <Provider store={store}>
-        <CounterContainer/>
+        <CounterContainer />
     </Provider>
 }
