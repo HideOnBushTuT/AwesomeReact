@@ -1,9 +1,10 @@
-import  React from "react";
+import React from "react";
 import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
+import thunk from 'redux-thunk';
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
@@ -21,6 +22,19 @@ const decrement = () => {
     };
 };
 
+const decrementAsync = () => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(decrement());
+        }, 1000);
+    };
+}
+
+// const decrementAsync = (next) => dispatch => {
+//     setTimeout(() => {
+//         dispatch(decrement());
+//     });
+// }
 const reset = () => {
     return {
         type: RESET,
@@ -28,12 +42,12 @@ const reset = () => {
 };
 
 const initValue = 0;
-const CounterReducer = (state, action) =>{
+const CounterReducer = (state = initValue, action) => {
 
-    switch(action.type) {
+    switch (action.type) {
         case INCREMENT:
             return state + 1;
-        case DECREMENT: 
+        case DECREMENT:
             return state - 1;
         case RESET:
             return initValue;
@@ -42,16 +56,17 @@ const CounterReducer = (state, action) =>{
     }
 }
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger));
+const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk));
 
-const Counter = ({count, onIncrement, onDecrement, onReset}) => {
+const Counter = ({ count, onIncrement, onDecrement, onReset }) => {
+    console.log('Counter Component rerendered !')
     return (
         <div className='App'>
-        <div>{count}</div>
-        <button onClick={onIncrement}>+</button>
-        <button onClick={onDecrement}>-</button>
-        <button onClick={onReset}>reset</button>
-    </div>
+            <div>{count}</div>
+            <button onClick={onIncrement}>+</button>
+            <button onClick={onDecrement}>-</button>
+            <button onClick={onReset}>reset</button>
+        </div>
     );
 };
 
@@ -70,7 +85,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onIncrement: () => dispatch(increment()),
-        onDecrement: () => dispatch(decrement()),
+        onDecrement: () => dispatch(decrementAsync()),
         onReset: () => dispatch(reset()),
     };
 };
@@ -79,6 +94,6 @@ const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 export default () => {
     return <Provider store={store}>
-        <CounterContainer/>
+        <CounterContainer />
     </Provider>
 }
