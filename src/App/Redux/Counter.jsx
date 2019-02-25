@@ -5,10 +5,13 @@ import { createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
 import thunk from 'redux-thunk';
+import { request } from "http";
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
-const RESET = "reset"
+const RESET = "reset";
+const REQUEST = 'requesting';
+const REQEUST_DONE = 'request_done';
 
 const increment = () => {
     return {
@@ -30,6 +33,18 @@ const decrementAsync = () => {
     };
 }
 
+const requesting = () => {
+    return {
+        type: REQUEST,
+    };
+};
+
+const requestDone = () => {
+    return {
+        type: REQEUST_DONE,
+    };
+};
+
 // const decrementAsync = (next) => dispatch => {
 //     setTimeout(() => {
 //         dispatch(decrement());
@@ -41,27 +56,39 @@ const reset = () => {
     };
 };
 
-const initValue = 0;
+const initValue = { count: 0, name: 'caibi'};
 const CounterReducer = (state = initValue, action) => {
 
     switch (action.type) {
         case INCREMENT:
-            return state + 1;
+            return { ...state, count: state.count + 1};
         case DECREMENT:
-            return state - 1;
+            return { ...state, count: state.count - 1};
         case RESET:
             return initValue;
         default:
-            return state;
+            return initValue;
+    }
+}
+
+const fetchReducer = (state = initValue, action) => {
+    switch (action.type) {
+        case REQUEST: 
+            return { ...state, name: requesting() };
+        case REQEUST_DONE:
+            return { ...state, name: action.payload };
+        default:
+            return initValue;
     }
 }
 
 const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk));
 
-const Counter = ({ count, onIncrement, onDecrement, onReset }) => {
+const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
     console.log('Counter Component rerendered !')
     return (
         <div className='App'>
+            <div><a>{name}</a></div>
             <div>{count}</div>
             <button onClick={onIncrement}>+</button>
             <button onClick={onDecrement}>-</button>
@@ -70,15 +97,28 @@ const Counter = ({ count, onIncrement, onDecrement, onReset }) => {
     );
 };
 
-const calculatorCount = (state) => state;
+const calculatorCount = (state) => state.count;
 
 const getCount = createSelector([calculatorCount], (state) => {
-    return state;
+    return state.count;
 });
 
-const mapStateToProps = (state) => {
+const calculatorName = (state) => state.name;
+
+const getName = createSelector([calculatorName], (state) => {
+    return state.name
+})
+
+    const mapStateToProps = (state) => {
+    // const mapStateToProps = async (state, dispatch) => {
+    // dispatch(requesting());
+    // const response = await fetch('https://api.randomuser.me/');    
+    // const data = await response.json();
+    // const [item] = data.results;
+    // await dispatch(requestDone(item));
     return {
-        count: getCount(state),
+        count: (state.count),
+        name: state.name,
     };
 };
 
