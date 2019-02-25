@@ -4,6 +4,7 @@ import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
+import thunk from 'redux-thunk';
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
@@ -21,6 +22,19 @@ const decrement = () => {
     };
 };
 
+const decrementAsync = () => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(decrement());
+        }, 1000);
+    };
+}
+
+// const decrementAsync = (next) => dispatch => {
+//     setTimeout(() => {
+//         dispatch(decrement());
+//     });
+// }
 const reset = () => {
     return {
         type: RESET,
@@ -42,9 +56,10 @@ const CounterReducer = (state = initValue, action) => {
     }
 }
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger));
+const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk));
 
 const Counter = ({ count, onIncrement, onDecrement, onReset }) => {
+    console.log('Counter Component rerendered !')
     return (
         <div className='App'>
             <div>{count}</div>
@@ -70,7 +85,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onIncrement: () => dispatch(increment()),
-        onDecrement: () => dispatch(decrement()),
+        onDecrement: () => dispatch(decrementAsync()),
         onReset: () => dispatch(reset()),
     };
 };
