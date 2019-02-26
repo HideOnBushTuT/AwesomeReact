@@ -1,7 +1,7 @@
 import React from "react";
 import '../../App.css';
 import { Provider, connect } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
 import thunk from 'redux-thunk';
@@ -33,6 +33,7 @@ const decrementAsync = () => {
     };
 }
 
+
 const requesting = () => {
     return {
         type: REQUEST,
@@ -43,6 +44,17 @@ const requestDone = () => {
     return {
         type: REQEUST_DONE,
     };
+};
+
+const fetchName = (url) => {
+    return async dispatch => {
+        await dispatch(requesting());
+        const response = await fetch(url);
+        const data = await response.json();
+        const [item] = data.results;
+        dispatch(requestDone(item));
+    };
+
 };
 
 // const decrementAsync = (next) => dispatch => {
@@ -56,14 +68,14 @@ const reset = () => {
     };
 };
 
-const initValue = { count: 0, name: 'caibi'};
+const initValue = { count: 0, name: 'caibi' };
 const CounterReducer = (state = initValue, action) => {
 
     switch (action.type) {
         case INCREMENT:
-            return { ...state, count: state.count + 1};
+            return { ...state, count: state.count + 1 };
         case DECREMENT:
-            return { ...state, count: state.count - 1};
+            return { ...state, count: state.count - 1 };
         case RESET:
             return initValue;
         default:
@@ -73,8 +85,8 @@ const CounterReducer = (state = initValue, action) => {
 
 const fetchReducer = (state = initValue, action) => {
     switch (action.type) {
-        case REQUEST: 
-            return { ...state, name: requesting() };
+        case REQUEST:
+            return { ...state, name: REQUEST };
         case REQEUST_DONE:
             return { ...state, name: action.payload };
         default:
@@ -109,7 +121,7 @@ const getName = createSelector([calculatorName], (state) => {
     return state.name
 })
 
-    const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     // const mapStateToProps = async (state, dispatch) => {
     // dispatch(requesting());
     // const response = await fetch('https://api.randomuser.me/');    
@@ -117,7 +129,7 @@ const getName = createSelector([calculatorName], (state) => {
     // const [item] = data.results;
     // await dispatch(requestDone(item));
     return {
-        count: (state.count),
+        count: state.count,
         name: state.name,
     };
 };
