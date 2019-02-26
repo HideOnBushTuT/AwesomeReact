@@ -96,18 +96,43 @@ const fetchReducer = (state = initValue, action) => {
 
 const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk));
 
-const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
-    console.log('Counter Component rerendered !')
-    return (
-        <div className='App'>
-            <div><a>{name}</a></div>
-            <div>{count}</div>
-            <button onClick={onIncrement}>+</button>
-            <button onClick={onDecrement}>-</button>
-            <button onClick={onReset}>reset</button>
-        </div>
-    );
-};
+// const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
+//     console.log('Counter Component rerendered !')
+//     return (
+//         <div className='App'>
+//             <div><a>{name}</a></div>
+//             <div>{count}</div>
+//             <button onClick={onIncrement}>+</button>
+//             <button onClick={onDecrement}>-</button>
+//             <button onClick={onReset}>reset</button>
+//         </div>
+//     );
+// };
+
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let value = this.props.count !== nextProps.count || this.props.name !== nextProps.name;
+        console.log('shouldComponentUpdate:', value);
+        return value;
+    }
+
+    render() {
+        console.log('Counter Component rerendered !')
+        return (
+            <div className='App'>
+                <div><a>{this.props.name}</a></div>
+                <div>{this.props.count}</div>
+                <button onClick={this.props.onIncrement}>+</button>
+                <button onClick={this.props.onDecrement}>-</button>
+                <button onClick={this.props.onReset}>reset</button>
+            </div>
+        );
+    }
+}
 
 const calculatorCount = (state) => state.count;
 
