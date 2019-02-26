@@ -9,6 +9,7 @@ import InputWithHooks from './App/Hooks/InputWithHooks';
 import Form from './App/Hooks/Form';
 import TimerView from './App/Todos/Todo';
 import Root from './App/Redux/Counter';
+import ImmutableTest from './App/Immutable/Immutable';
 
 // window.Perf = Perf;
 
@@ -34,7 +35,13 @@ const App = () => {
     // }
 
     return (
-        <Root />
+        // <Root />\
+        <div>
+            <div><ImmutableTest/></div>
+            <div><Root/></div>
+        </div>
+        
+        
         // <InputWithHooks initialcount={8} />
         // <TimerView appState={appState}/>
         // <div className='App'>
