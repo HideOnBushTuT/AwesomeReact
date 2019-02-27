@@ -10,6 +10,7 @@ import Form from './App/Hooks/Form';
 import TimerView from './App/Todos/Todo';
 import Root from './App/Redux/Counter';
 import ImmutableTest from './App/Immutable/Immutable';
+import GeneratorBasic from './App/Generator/generator';
 
 // window.Perf = Perf;
 
@@ -39,6 +40,7 @@ const App = () => {
         <div>
             <div><ImmutableTest/></div>
             <div><Root/></div>
+            <div><GeneratorBasic/></div>
         </div>
         
         
