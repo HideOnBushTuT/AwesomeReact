@@ -2,6 +2,10 @@ import React from "react";
 import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware, combineReducers } from "redux";
+import createSagaMiddleware from 'redux-saga';
+
+import { HelloSaga } from '../saga/HelloSaga';
+
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
 import thunk from 'redux-thunk';
@@ -93,8 +97,12 @@ const fetchReducer = (state = initValue, action) => {
             return initValue;
     }
 }
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk));
+const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk, sagaMiddleware));
+
+// then run the saga
+sagaMiddleware.run(HelloSaga); 
 
 // const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
 //     console.log('Counter Component rerendered !')
