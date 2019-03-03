@@ -3,23 +3,31 @@ import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import createSagaMiddleware from 'redux-saga';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { HelloSaga } from '../saga/HelloSaga';
+import { watchIncrementAsync } from '../saga/HelloSaga';
 
 import { logger } from "redux-logger";
 import { createSelector } from "reselect";
 import thunk from 'redux-thunk';
 import { request } from "http";
 
-const INCREMENT = "increment";
+export const INCREMENT = "increment";
+export const INCREMENT_ASYNC = "increment-async";
 const DECREMENT = "decrement";
 const RESET = "reset";
 const REQUEST = 'requesting';
 const REQEUST_DONE = 'request_done';
 
-const increment = () => {
+export const increment = () => {
     return {
         type: INCREMENT,
+    };
+};
+
+export const incrementAsync = () => {
+    return {
+        type: INCREMENT_ASYNC,
     };
 };
 
@@ -72,6 +80,7 @@ const reset = () => {
     };
 };
 
+
 const initValue = { count: 0, name: 'caibi' };
 const CounterReducer = (state = initValue, action) => {
 
@@ -82,6 +91,8 @@ const CounterReducer = (state = initValue, action) => {
             return { ...state, count: state.count - 1 };
         case RESET:
             return initValue;
+        case INCREMENT_ASYNC: 
+            return state;
         default:
             return initValue;
     }
@@ -99,10 +110,11 @@ const fetchReducer = (state = initValue, action) => {
 }
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk, sagaMiddleware));
+const store = createStore(CounterReducer, initValue, applyMiddleware(logger, sagaMiddleware));
 
 // then run the saga
-sagaMiddleware.run(HelloSaga); 
+sagaMiddleware.run(watchIncrementAsync); 
+// sagaMiddleware.run(incrementAsyncSaga);
 
 // const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
 //     console.log('Counter Component rerendered !')
@@ -135,6 +147,7 @@ class Counter extends React.Component {
                 <div><a>{this.props.name}</a></div>
                 <div>{this.props.count}</div>
                 <button onClick={this.props.onIncrement}>+</button>
+                <button onClick={this.props.onIncrementSaync}>+ Async</button>
                 <button onClick={this.props.onDecrement}>-</button>
                 <button onClick={this.props.onReset}>reset</button>
             </div>
@@ -170,6 +183,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onIncrement: () => dispatch(increment()),
+        onIncrementSaync: () => dispatch(incrementAsync()),
         onDecrement: () => dispatch(decrementAsync()),
         onReset: () => dispatch(reset()),
     };
