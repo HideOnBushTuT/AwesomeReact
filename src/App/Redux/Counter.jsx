@@ -110,7 +110,7 @@ const fetchReducer = (state = initValue, action) => {
 }
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger, sagaMiddleware));
+const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk, sagaMiddleware));
 
 // then run the saga
 sagaMiddleware.run(watchIncrementAsync); 
