@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import '../../App.css';
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware, combineReducers } from "redux";
@@ -117,6 +117,10 @@ sagaMiddleware.run(watchIncrementAsync);
 // sagaMiddleware.run(incrementAsyncSaga);
 
 const Counter = ({ count, name, onIncrement, onDecrement, onReset, onIncrementSaync }) => {
+    useEffect(() => {
+        document.title = count;
+    });
+
     console.log('Counter Component rerendered !')
     return (
         <div className='App'>
