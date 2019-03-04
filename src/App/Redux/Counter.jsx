@@ -18,6 +18,9 @@ const DECREMENT = "decrement";
 const RESET = "reset";
 const REQUEST = 'requesting';
 const REQEUST_DONE = 'request_done';
+export const FETCH_NAME = 'fetch_name';
+export const FETCH_SUCCESS = 'fetch_success';
+export const FETCH_FAIL = 'fetch_fail';
 
 export const increment = () => {
     return {
@@ -58,16 +61,36 @@ const requestDone = () => {
     };
 };
 
-const fetchName = (url) => {
-    return async dispatch => {
-        await dispatch(requesting());
-        const response = await fetch(url);
-        const data = await response.json();
-        const [item] = data.results;
-        dispatch(requestDone(item));
+export const fetchName = () => {
+    return {
+        type: FETCH_NAME,
     };
-
 };
+
+export const fetchSuccess = (data) => {
+    return {
+        type: FETCH_SUCCESS,
+        data,
+    };
+};
+
+export const fetchFail = (error) => {
+    return {
+        type: FETCH_FAIL,
+        error,
+    };
+};
+
+// const fetchName = (url) => {
+//     return async dispatch => {
+//         await dispatch(requesting());
+//         const response = await fetch(url);
+//         const data = await response.json();
+//         const [item] = data.results;
+//         dispatch(requestDone(item));
+//     };
+
+// };
 
 // const decrementAsync = (next) => dispatch => {
 //     setTimeout(() => {
@@ -81,8 +104,8 @@ const reset = () => {
 };
 
 
-const initValue = { count: 0, name: 'caibi' };
-const CounterReducer = (state = initValue, action) => {
+const initValue = 0;
+const CounterReducer = (state = { count: 0 }, action) => {
 
     switch (action.type) {
         case INCREMENT:
@@ -90,33 +113,40 @@ const CounterReducer = (state = initValue, action) => {
         case DECREMENT:
             return { ...state, count: state.count - 1 };
         case RESET:
-            return initValue;
+            return { ...state, count: initValue};
         case INCREMENT_ASYNC:
             return state;
         default:
-            return initValue;
+            return { ...state, count: 0 };
     }
 }
 
-const fetchReducer = (state = initValue, action) => {
+const fetchReducer = (state = { name: 'caibi' }, action) => {
     switch (action.type) {
-        case REQUEST:
-            return { ...state, name: REQUEST };
-        case REQEUST_DONE:
-            return { ...state, name: action.payload };
+        case FETCH_NAME:
+            return state;
+        case FETCH_SUCCESS:
+            return { ...state, name: action.data };
+        case FETCH_FAIL:
+            return { ...state, name: 'error'};
         default:
-            return initValue;
+            return { ...state, name: 'caibi' };
     }
 }
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk, sagaMiddleware));
+const reducer = combineReducers({
+    counter: CounterReducer, 
+    fetch: fetchReducer
+});
+
+const store = createStore(reducer, applyMiddleware(logger, sagaMiddleware, thunk, ));
 
 // then run the saga
 sagaMiddleware.run(watchIncrementAsync);
 // sagaMiddleware.run(incrementAsyncSaga);
 
-const Counter = ({ count, name, onIncrement, onDecrement, onReset, onIncrementSaync }) => {
+const Counter = ({ count, name, onIncrement, onDecrement, onReset, onIncrementSaync, fetchName }) => {
     useEffect(() => {
         document.title = count;
     });
@@ -130,6 +160,8 @@ const Counter = ({ count, name, onIncrement, onDecrement, onReset, onIncrementSa
             <button onClick={onIncrementSaync}>+ Async</button>
             <button onClick={onDecrement}>-</button>
             <button onClick={onReset}>reset</button>
+            <br />
+            <button onClick={fetchName}>fetch name</button>
         </div>
     );
 };
@@ -180,8 +212,8 @@ const mapStateToProps = (state) => {
     // const [item] = data.results;
     // await dispatch(requestDone(item));
     return {
-        count: state.count,
-        name: state.name,
+        count: state.counter.count,
+        name: state.fetch.name,
     };
 };
 
@@ -191,6 +223,7 @@ const mapDispatchToProps = (dispatch) => {
         onIncrementSaync: () => dispatch(incrementAsync()),
         onDecrement: () => dispatch(decrementAsync()),
         onReset: () => dispatch(reset()),
+        fetchName: () => dispatch(fetchName()),
     };
 };
 

@@ -40,7 +40,6 @@ const App = () => {
         <div>
             <div><ImmutableTest/></div>
             <div><Root/></div>
-            <div><GeneratorBasic/></div>
         </div>
         
         
