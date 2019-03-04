@@ -91,7 +91,7 @@ const CounterReducer = (state = initValue, action) => {
             return { ...state, count: state.count - 1 };
         case RESET:
             return initValue;
-        case INCREMENT_ASYNC: 
+        case INCREMENT_ASYNC:
             return state;
         default:
             return initValue;
@@ -113,47 +113,48 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(CounterReducer, initValue, applyMiddleware(logger, thunk, sagaMiddleware));
 
 // then run the saga
-sagaMiddleware.run(watchIncrementAsync); 
+sagaMiddleware.run(watchIncrementAsync);
 // sagaMiddleware.run(incrementAsyncSaga);
 
-// const Counter = ({ count, name, onIncrement, onDecrement, onReset }) => {
-//     console.log('Counter Component rerendered !')
-//     return (
-//         <div className='App'>
-//             <div><a>{name}</a></div>
-//             <div>{count}</div>
-//             <button onClick={onIncrement}>+</button>
-//             <button onClick={onDecrement}>-</button>
-//             <button onClick={onReset}>reset</button>
-//         </div>
-//     );
-// };
+const Counter = ({ count, name, onIncrement, onDecrement, onReset, onIncrementSaync }) => {
+    console.log('Counter Component rerendered !')
+    return (
+        <div className='App'>
+            <div><a>{name}</a></div>
+            <div>{count}</div>
+            <button onClick={onIncrement}>+</button>
+            <button onClick={onIncrementSaync}>+ Async</button>
+            <button onClick={onDecrement}>-</button>
+            <button onClick={onReset}>reset</button>
+        </div>
+    );
+};
 
-class Counter extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+// class Counter extends React.Component {
+//     constructor(props) {
+//         super(props);
+//     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        let value = this.props.count !== nextProps.count || this.props.name !== nextProps.name;
-        console.log('shouldComponentUpdate:', value);
-        return value;
-    }
+//     shouldComponentUpdate(nextProps, nextState) {
+//         let value = this.props.count !== nextProps.count || this.props.name !== nextProps.name;
+//         console.log('shouldComponentUpdate:', value);
+//         return value;
+//     }
 
-    render() {
-        console.log('Counter Component rerendered !')
-        return (
-            <div className='App'>
-                <div><a>{this.props.name}</a></div>
-                <div>{this.props.count}</div>
-                <button onClick={this.props.onIncrement}>+</button>
-                <button onClick={this.props.onIncrementSaync}>+ Async</button>
-                <button onClick={this.props.onDecrement}>-</button>
-                <button onClick={this.props.onReset}>reset</button>
-            </div>
-        );
-    }
-}
+//     render() {
+//         console.log('Counter Component rerendered !')
+//         return (
+//             <div className='App'>
+//                 <div><a>{this.props.name}</a></div>
+//                 <div>{this.props.count}</div>
+//                 <button onClick={this.props.onIncrement}>+</button>
+//                 <button onClick={this.props.onIncrementSaync}>+ Async</button>
+//                 <button onClick={this.props.onDecrement}>-</button>
+//                 <button onClick={this.props.onReset}>reset</button>
+//             </div>
+//         );
+//     }
+// }
 
 const calculatorCount = (state) => state.count;
 
