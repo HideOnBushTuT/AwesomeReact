@@ -11,6 +11,8 @@ import TimerView from './App/Todos/Todo';
 import Root from './App/Redux/Counter';
 import ImmutableTest from './App/Immutable/Immutable';
 import GeneratorBasic from './App/Generator/generator';
+import TodoList from './App/MobX/TodoList';
+import store from './App/MobX/TodoStore';
 
 // window.Perf = Perf;
 
@@ -40,6 +42,7 @@ const App = () => {
         <div>
             <div><ImmutableTest/></div>
             <div><Root/></div>
+            {/* <div><TodoList store={store}/></div> */}
         </div>
         
         
