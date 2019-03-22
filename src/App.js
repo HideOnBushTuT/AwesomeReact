@@ -42,7 +42,7 @@ const App = () => {
         <div>
             <div><ImmutableTest/></div>
             <div><Root/></div>
-            {/* <div><TodoList store={store}/></div> */}
+            <div><TodoList store={store}/></div>
         </div>
         
         
