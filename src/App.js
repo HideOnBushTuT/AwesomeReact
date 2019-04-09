@@ -1,6 +1,8 @@
 import React, { Component, useState, } from 'react';
 
 import { observable, action } from "mobx";
+// import { Router, Route } from 'react-router';
+import { BrowserRouter as Router, Route, hasHistory, Link } from 'react-router-dom';
 // import Perf from 'react-addons-perf';
 // import logo from './logo.svg';
 import './App.css';
@@ -38,14 +40,29 @@ const App = () => {
     // }
 
     return (
-        // <Root />\
-        <div>
-            <div><ImmutableTest/></div>
-            <div><Root/></div>
-            {/* <div><TodoList store={store}/></div> */}
-        </div>
-        
-        
+        <Router>
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+                <hr />
+                <Route exact path="/" component={Root} />
+                <Route path="/about" component={ImmutableTest} />
+            </div>
+        </Router>
+        // // <Root />\
+        // <div>
+        //     <div><ImmutableTest/></div>
+        //     <div><Root/></div>
+        //     {/* <div><TodoList store={store}/></div> */}
+        // </div>
+
+
         // <InputWithHooks initialcount={8} />
         // <TimerView appState={appState}/>
         // <div className='App'>
