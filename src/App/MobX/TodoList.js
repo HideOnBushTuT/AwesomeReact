@@ -1,13 +1,14 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 
-export default class TodoList extends React.Component {
+class TodoList extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        return <div>
-            mobx
-        </div>
+        return <h1>{this.props.store.todos[0]}</h1>
     }
 }
+
+export default observer(TodoList);

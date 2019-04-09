@@ -40,6 +40,7 @@ const App = () => {
     // }
 
     return (
+<<<<<<< HEAD
         <Router>
             <div>
                 <ul>
@@ -63,6 +64,16 @@ const App = () => {
         // </div>
 
 
+=======
+        // <Root />\
+        <div>
+            <div><ImmutableTest/></div>
+            <div><Root/></div>
+            <div><TodoList store={store}/></div>
+        </div>
+        
+        
+>>>>>>> c88c7d2adf25fd7a3b93b8efd84ab57f30df7304
         // <InputWithHooks initialcount={8} />
         // <TimerView appState={appState}/>
         // <div className='App'>
