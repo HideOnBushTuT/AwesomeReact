@@ -1,22 +1,22 @@
 import React, { Component, useState, } from 'react';
 
-import { observable, action } from "mobx";
+// import { observable, action } from "mobx";
 // import { Router, Route } from 'react-router';
 import { BrowserRouter as Router, Route, hasHistory, Link } from 'react-router-dom';
 // import Perf from 'react-addons-perf';
 // import logo from './logo.svg';
-import './App.css';
-import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
-import InputWithHooks from './App/Hooks/InputWithHooks';
-import Form from './App/Hooks/Form';
-import TimerView from './App/Todos/Todo';
-import Root from './App/Redux/Counter';
-import ImmutableTest from './App/Immutable/Immutable';
-import GeneratorBasic from './App/Generator/generator';
-import TodoList from './App/MobX/TodoList';
-import store from './App/MobX/TodoStore';
-import AuthExample from './App/ReactRouter/Redirects';
-
+// import './App.css';
+// import InputWithoutHooks from './App/Hooks/InputWithoutHooks';
+// import InputWithHooks from './App/Hooks/InputWithHooks';
+// import Form from './App/Hooks/Form';
+// import TimerView from './App/Todos/Todo';
+// import Root from './App/Redux/Counter';
+// import ImmutableTest from './App/Immutable/Immutable';
+// import GeneratorBasic from './App/Generator/generator';
+// import TodoList from './App/MobX/TodoList';
+// import store from './App/MobX/TodoStore';
+// import AuthExample from './App/ReactRouter/Redirects';
+import CustomLinkExample from './App/ReactRouter/CustomLink';
 // window.Perf = Perf;
 
 // var appState = observable({
@@ -42,7 +42,8 @@ const App = () => {
 
     return (
         <Router>
-            <AuthExample/>
+            {/* <AuthExample/> */}
+            <CustomLinkExample />
         </Router>
         // <Router>
         //     <div>
