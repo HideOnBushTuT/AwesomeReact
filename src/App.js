@@ -13,8 +13,8 @@ import TimerView from './App/Todos/Todo';
 import Root from './App/Redux/Counter';
 import ImmutableTest from './App/Immutable/Immutable';
 import GeneratorBasic from './App/Generator/generator';
-// import TodoList from './App/MobX/TodoList';
-// import store from './App/MobX/TodoStore';
+import TodoList from './App/MobX/TodoList';
+import store from './App/MobX/TodoStore';
 
 // window.Perf = Perf;
 
@@ -44,15 +44,23 @@ const App = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/shanbin.cai">shanbin.cai</Link>
                     </li>
                     <li>
-                        <Link to="/about">About</Link>
+                        <Link to="/xiaowang">xiaowang</Link>
+                    </li>
+                    <li>
+                        <Link to="/xiaocai">xiaocai</Link>
+                    </li>
+                    <li>
+                        <Link to="/order/desc">order</Link>
                     </li>
                 </ul>
                 <hr />
-                <Route exact path="/" component={Root} />
-                <Route path="/about" component={ImmutableTest} />
+                <Route path="/:id" component={Child}/>
+                <Route exact={true} path="/order/:direction(asc|desc)" component={ComponentWithRegex}/>
+                {/* <Route exact path="/" component={Root} /> */}
+                {/* <Route path="/about" component={ImmutableTest} /> */}
             </div>
         </Router>
         // // <Root />\
@@ -80,6 +88,18 @@ const App = () => {
     );
 };
 
+
+const Child = ({ match }) => {
+    return <div>
+        <h3>ID: {match.params.id}</h3>
+    </div>
+}
+
+const ComponentWithRegex = ({ match }) => {
+    return <div>
+        <h1>Only asc or desc are allowed: {match.params.direction}</h1>
+    </div>
+}
 // function App() {
 //     const [name, setName] = useState('Mary');
 //
