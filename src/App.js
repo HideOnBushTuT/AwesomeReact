@@ -15,6 +15,7 @@ import ImmutableTest from './App/Immutable/Immutable';
 import GeneratorBasic from './App/Generator/generator';
 import TodoList from './App/MobX/TodoList';
 import store from './App/MobX/TodoStore';
+import AuthExample from './App/ReactRouter/Redirects';
 
 // window.Perf = Perf;
 
@@ -41,28 +42,35 @@ const App = () => {
 
     return (
         <Router>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/shanbin.cai">shanbin.cai</Link>
-                    </li>
-                    <li>
-                        <Link to="/xiaowang">xiaowang</Link>
-                    </li>
-                    <li>
-                        <Link to="/xiaocai">xiaocai</Link>
-                    </li>
-                    <li>
-                        <Link to="/order/desc">order</Link>
-                    </li>
-                </ul>
-                <hr />
-                <Route path="/:id" component={Child}/>
-                <Route exact={true} path="/order/:direction(asc|desc)" component={ComponentWithRegex}/>
-                {/* <Route exact path="/" component={Root} /> */}
-                {/* <Route path="/about" component={ImmutableTest} /> */}
-            </div>
+            <AuthExample/>
         </Router>
+        // <Router>
+        //     <div>
+        //         <ul>
+        //             <li>
+        //                 <Link to="/shanbin.cai">shanbin.cai</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/xiaowang">xiaowang</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/xiaocai">xiaocai</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/order/desc">order</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/reactrouter/redirects">Redirects</Link>
+        //             </li>
+        //         </ul>
+        //         <hr />
+        //         <Route path="/:id" component={Child}/>
+        //         <Route path="/reactrouter/redirects" component={AuthExample}/>
+        //         <Route exact={true} path="/order/:direction(asc|desc)" component={ComponentWithRegex}/>
+        //         {/* <Route exact path="/" component={Root} /> */}
+        //         {/* <Route path="/about" component={ImmutableTest} /> */}
+        //     </div>
+        // </Router>
         // // <Root />\
         // <div>
         //     <div><ImmutableTest/></div>
