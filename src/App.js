@@ -16,7 +16,8 @@ import { BrowserRouter as Router, Route, hasHistory, Link } from 'react-router-d
 // import TodoList from './App/MobX/TodoList';
 // import store from './App/MobX/TodoStore';
 // import AuthExample from './App/ReactRouter/Redirects';
-import CustomLinkExample from './App/ReactRouter/CustomLink';
+// import CustomLinkExample from './App/ReactRouter/CustomLink';
+import RecursivePath from './App/ReactRouter/RecursivePath';
 // window.Perf = Perf;
 
 // var appState = observable({
@@ -41,10 +42,9 @@ const App = () => {
     // }
 
     return (
-        <Router>
-            {/* <AuthExample/> */}
-            <CustomLinkExample />
-        </Router>
+        // <Router>
+            <RecursivePath/>
+        // </Router>
         // <Router>
         //     <div>
         //         <ul>
