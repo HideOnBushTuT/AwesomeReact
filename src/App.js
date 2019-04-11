@@ -2,7 +2,7 @@ import React, { Component, useState, } from 'react';
 
 // import { observable, action } from "mobx";
 // import { Router, Route } from 'react-router';
-import { BrowserRouter as Router, Route, hasHistory, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, hasHistory, Link } from 'react-router-dom';
 // import Perf from 'react-addons-perf';
 // import logo from './logo.svg';
 // import './App.css';
@@ -98,17 +98,17 @@ const App = () => {
 };
 
 
-const Child = ({ match }) => {
-    return <div>
-        <h3>ID: {match.params.id}</h3>
-    </div>
-}
+// const Child = ({ match }) => {
+//     return <div>
+//         <h3>ID: {match.params.id}</h3>
+//     </div>
+// }
 
-const ComponentWithRegex = ({ match }) => {
-    return <div>
-        <h1>Only asc or desc are allowed: {match.params.direction}</h1>
-    </div>
-}
+// const ComponentWithRegex = ({ match }) => {
+//     return <div>
+//         <h1>Only asc or desc are allowed: {match.params.direction}</h1>
+//     </div>
+// }
 // function App() {
 //     const [name, setName] = useState('Mary');
 //
