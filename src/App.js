@@ -17,7 +17,8 @@ import React, { Component, useState, } from 'react';
 // import store from './App/MobX/TodoStore';
 // import AuthExample from './App/ReactRouter/Redirects';
 // import CustomLinkExample from './App/ReactRouter/CustomLink';
-import RecursivePath from './App/ReactRouter/RecursivePath';
+// import RecursivePath from './App/ReactRouter/RecursivePath';
+import MarkdownExample from './App/Markdown/markdown';
 // window.Perf = Perf;
 
 // var appState = observable({
@@ -42,8 +43,11 @@ const App = () => {
     // }
 
     return (
+        <div>
+            <MarkdownExample />
+        </div>
         // <Router>
-            <RecursivePath/>
+            // <RecursivePath/>
         // </Router>
         // <Router>
         //     <div>
